@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <Instance>
+
   <MetaData>
     <InstanceName>inst4linearperturbacaoA</InstanceName>
     <DataType>A</DataType>
@@ -7,6 +9,7 @@
     <Remarks/>
     <Lowerbound infeasibility="0" objective="0"/>
   </MetaData>
+
   <Structure>
     <Format leagueIds="0">
       <numberRoundRobin>1</numberRoundRobin>
@@ -14,9 +17,11 @@
     </Format>
     <AdditionalGames/>
   </Structure>
+
   <ObjectiveFunction>
     <Objective>CO</Objective>
   </ObjectiveFunction>
+
   <Data>
     <Distances/>
     <COEWeights>
@@ -39,6 +44,7 @@
     </COEWeights>
     <Costs/>
   </Data>
+
   <Resources>
     <TeamGroups/>
     <LeagueGroups/>
@@ -58,6 +64,7 @@
       <slot id="2" name="Slot2"/>
     </Slots>
   </Resources>
+
   <Constraints>
     <BasicConstraints/>
     <CapacityConstraints/>
@@ -66,4 +73,5 @@
     <FairnessConstraints/>
     <SeparationConstraints/>
   </Constraints>
+
 </Instance>

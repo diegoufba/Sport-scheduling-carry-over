@@ -9,7 +9,7 @@ from readInstance import getInstance
 
 def drawGraph():
     global color
-    rgb_color = ['gray','r','g','b','y','m','brown']
+    rgb_color = ['gray','r','g','b','y','m','skyblue']
     H = nx.Graph()
     for node in range(n):
         H.add_node(node)
@@ -52,7 +52,7 @@ def has_chain(beta_color,alpha_color,v0):
     else:
         return False    
 
-n = 5
+n = 6
 G = nx.complete_graph(n)
 
 # n cores disponiveis para cada no
