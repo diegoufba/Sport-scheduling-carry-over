@@ -1,11 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from networkx.classes import graph
 
-from readInstance import getInstance
-
-#myInstance = getInstance('inst4linearperturbacaoA')
-#print(myInstance.weights)
 
 def drawGraph():
     global color

@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+from xml.dom import minidom
 
 def save_solution(schedule):
     tree = ET.ElementTree(ET.fromstring('<Solution></Solution>'))
@@ -24,4 +25,8 @@ def save_solution(schedule):
 
     for jogo in solution:
         game = ET.SubElement(games,'ScheduledMatch',jogo)
-    tree.write('Solution.xml')
+
+    xmlstr = minidom.parseString(ET.tostring(root)).toprettyxml(indent="   ")
+    with open("Solution.xml", "w") as f:
+        f.write(xmlstr)
+    #tree.write('Solution.xml')

@@ -1,4 +1,4 @@
-def pts(schedule,t,r1,r2):
+def prs(schedule,t,r1,r2):
 
     # schedule = [
     # [2,9,6,7,4,1,3,8,5],
@@ -16,7 +16,7 @@ def pts(schedule,t,r1,r2):
     initial_team = t
     for i in range (len(schedule)):
         
-        # Troca de times de round
+        # Troca de round dos times
         aux = schedule[t][r1]
         schedule[t][r1] = schedule[t][r2]
         schedule[t][r2] = aux
