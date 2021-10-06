@@ -1,3 +1,5 @@
+import cProfile
+
 from circle import circle_method
 from objetivo import objetivo
 from readInstanceWeight import getInstance
@@ -11,8 +13,10 @@ weight_table, n = getInstance('instances/inst6linearperturbacaoA.xml')
 # Gera a solucao pelo metodo do circulo
 schedule = circle_method(n)
 
+#cProfile.run('circle_method(n)')
+
 # Calcula a funcao objetivo
-obj = objetivo(n,schedule,weight_table)
+obj = objetivo(schedule,weight_table)
 
 print(f'obj1: {obj}')
 
@@ -21,8 +25,12 @@ print(f'obj1: {obj}')
 
 # Faz a troca parcial de times
 schedule = pts(schedule,1,0,1)
+#cProfile.run('pts(schedule,1,0,1)')
 
-obj = objetivo(n,schedule,weight_table)
+
+obj = objetivo(schedule,weight_table)
+
+#cProfile.run('objetivo(schedule,weight_table)')
 
 print(f'obj2: {obj}')
 
