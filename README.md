@@ -99,5 +99,25 @@ save_solution(schedule)
 ```
 ### Saída
 ```
-Arquivo Solution.xml
+<?xml version="1.0" ?>
+<Solution>
+   <Games>
+      <ScheduledMatch home="0" away="4" slot="0"/>
+      <ScheduledMatch home="0" away="5" slot="1"/>
+      <ScheduledMatch home="0" away="3" slot="2"/>
+      <ScheduledMatch home="0" away="1" slot="3"/>
+      <ScheduledMatch home="0" away="2" slot="4"/>
+      <ScheduledMatch home="1" away="5" slot="0"/>
+      <ScheduledMatch home="1" away="2" slot="1"/>
+      <ScheduledMatch home="1" away="4" slot="2"/>
+      <ScheduledMatch home="1" away="3" slot="4"/>
+      <ScheduledMatch home="2" away="3" slot="0"/>
+      <ScheduledMatch home="2" away="5" slot="2"/>
+      <ScheduledMatch home="2" away="4" slot="3"/>
+      <ScheduledMatch home="3" away="4" slot="1"/>
+      <ScheduledMatch home="3" away="5" slot="3"/>
+      <ScheduledMatch home="4" away="5" slot="4"/>
+   </Games>
+</Solution>
+
 ```
