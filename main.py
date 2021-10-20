@@ -17,52 +17,37 @@ schedule = circle_method(n)
 obj,carry_over_table = objetivo(schedule,weight_table)
 print('obj circulo:',obj)
 
-# print('carry over inicial')
-# for line in carry_over_table:
-#     print(line)
-
-r1 ,r2 = 7,8
-
-obj,c = obj_rs(obj,schedule,r1,r2,weight_table,carry_over_table[:])
-print('objetivo teste:',obj)
-
-# print('carry over teste')
-# for line in c:
-#     print(line)
-
-schedule = rs(schedule,r1,r2)
-
-obj,carry_over_table = objetivo(schedule,weight_table)
-
-# print()
-# print('carry over real')
-# for line in carry_over_table:
-#     print(line)
-print('objetivo real:',obj)
-
-# for line in schedule:
-#     print(line)
-
-#cProfile.run('circle_method(n)')
-
-# Calcula a funcao objetivo
-
-
-# Faz a troca parcial de rodadas
-#schedule = prs(schedule,0,1,3)
-
-# Faz a troca parcial de times
-#schedule = pts(schedule,1,0,1)
-#cProfile.run('pts(schedule,1,0,1)')
-
-
-#obj = objetivo(schedule,weight_table)
-
-#cProfile.run('objetivo(schedule,weight_table)')
-
-#print(f'obj2: {obj}')
-
-# for line in pts(schedule,0,2,3):
-#     print(line)
-
+resp2 = []
+resp1 = []
+# Round Swap para Objetivo Minimo
+obj_minimo = obj
+for r1 in range(n-2):
+    for r2 in range(n-2):
+        if r1 < r2:
+            obj = obj_rs(obj_minimo,schedule,r1,r2,weight_table,carry_over_table)
+            resp1.append((r1,r2,obj))
+            if obj < obj_minimo:
+                obj_minimo = obj
+                rs(schedule,r1,r2)
+print(obj_minimo)
 save_solution(schedule)
+
+# Round Swap para Objetivo Minimo
+schedule = circle_method(n)
+obj,carry_over_table = objetivo(schedule,weight_table)
+obj_minimo = obj
+for r1 in range(n-2):
+    for r2 in range(n-2):
+        if r1 < r2:
+            rs(schedule,r1,r2)
+            obj,carry_over_table = objetivo(schedule,weight_table)
+            resp2.append((r1,r2,obj))
+            #print(r1,r2,obj)
+            if obj < obj_minimo:
+                obj_minimo = obj
+            else:
+                rs(schedule,r1,r2)
+print(obj_minimo)
+
+for i in range(len(resp1)):
+    print(f'{resp2[i][0]} {resp2[i][1]} {resp2[i][2]} {resp1[i][2]}')
