@@ -17,5 +17,8 @@ def objetivo(schedule,weight_table):
     for i in range(n):
         for j in range(n):
             result += weight_table[i][j] * (carry_over_table[i][j]**2)
+            #result +=  (carry_over_table[i][j]**2)
 
-    return result
+    # for line in carry_over_table:
+    #     print(line)
+    return result,carry_over_table
