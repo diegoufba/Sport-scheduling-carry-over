@@ -1,18 +1,7 @@
-from circle import circle_method
 from objetivo import objetivo
-from readInstanceWeight import getInstance
-from saveSchedule import save_solution
 from partial_round_swap import prs
 
-def min_prs():
-    # Round Swap para Objetivo Minimo
-    # Ler a instancia
-    weight_table, n = getInstance('instances/inst10linearperturbacaoA.xml')
-
-    # Gera a solucao pelo metodo do circulo
-    schedule = circle_method(n)
-
-    obj,carry_over_table = objetivo(schedule,weight_table)
+def min_prs_test(n,schedule,weight_table,obj):
     obj_minimo = obj
     for r1 in range(n-2):
         for r2 in range(n-2):
@@ -24,7 +13,4 @@ def min_prs():
                         obj_minimo = obj
                     else:
                         prs(schedule,t,r1,r2)
-    print(obj_minimo)
-    save_solution(schedule)
-
-min_prs()
+    print('obj prs min test:',obj_minimo)

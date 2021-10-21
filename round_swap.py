@@ -1,3 +1,4 @@
+import copy
 def rs(schedule,r1,r2):
     for i in range (len(schedule)):
         # Troca de round
@@ -5,7 +6,7 @@ def rs(schedule,r1,r2):
 
 def obj_rs(obj,schedule,r1,r2,weight_table,carry_over_table):
     new_obj = obj
-    aux_carry_over_table = carry_over_table[:]
+    aux_carry_over_table = copy.deepcopy(carry_over_table)
     n_times = len(schedule)
 
     if r1 == 0 and r2==n_times-2:
@@ -188,9 +189,7 @@ def obj_rs(obj,schedule,r1,r2,weight_table,carry_over_table):
                 (weight_table[t1][td2] * aux_carry_over_table[t1][td2]**2)
             )
 
-    if new_obj < obj:
-        carry_over_table = aux_carry_over_table
-    return new_obj
+    return new_obj, aux_carry_over_table
 
 
 def obj_rs2(obj,schedule,r1,r2,weight_table,carry_over_table):
