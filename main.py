@@ -1,16 +1,16 @@
 import cProfile
 
-from circle import circle_method
 from objetivo import objetivo
 from readInstanceWeight import getInstance
 from saveSchedule import save_solution
-from rs_obj_min import min_rs
-from rs_obj_min_test import min_rs_test
-from prs_obj_min import min_prs
-from prs_obj_min_test import min_prs_test
-from ts_obj_min import min_ts_test
-from pts_obj_min_test import min_pts_test
-from vizing_professor import vizing
+from geradores.circle import circle_method
+from geradores.vizing_professor import vizing
+from round_swap.obj_rs_min import min_rs
+from round_swap.obj_rs_min_test import min_rs_test
+from partial_round_swap.obj_prs_min import min_prs
+from partial_round_swap.obj_prs_min_test import min_prs_test
+from team_swap.obj_ts_min_test import min_ts_test
+from partial_team_swap.obj_pts_min_test import min_pts_test
 
 # Escolhe o tamanho da instancia
 # Valores disponiveis: 6,10,12,14,16,18,20
@@ -19,18 +19,22 @@ instance_size = 10
 # Ler a instancia
 weight_table, n = getInstance(f'instances/inst{instance_size}linearperturbacaoA.xml')
 
-# Gera a solucao pelo metodo do circulo
-schedule = circle_method(n)
+# Metodos disponiveis: circle, vizing
+metodo = 'circle'
 
-# Gera a solucao pelo metodo do vizing
-schedule = vizing(n-1)
+if metodo == 'circle':
+    # Gera a solucao pelo metodo do circulo
+    schedule = circle_method(n)
+if metodo == 'vizing':
+    # Gera a solucao pelo metodo do vizing
+    schedule = vizing(n-1)
 
 # Calcula a funcao Objetivo do circulo e a tabela de carry over
 obj,carry_over_table = objetivo(schedule,weight_table)
-print('obj circulo:',obj)
+print(f'obj {metodo}:',obj)
 
 # Escolhe a operacao
-operacao ='prs'
+operacao ='pts'
 
 # Round Swap Objetivo Minimo
 if operacao == 'rs':

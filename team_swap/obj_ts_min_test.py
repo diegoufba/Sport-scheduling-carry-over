@@ -1,6 +1,5 @@
-from circle import circle_method
 from objetivo import objetivo
-from team_swap import ts
+from team_swap.ts import ts
 
 def min_ts_test(n,schedule,weight_table,obj):
     obj_minimo = obj

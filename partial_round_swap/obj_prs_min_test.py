@@ -1,5 +1,5 @@
 from objetivo import objetivo
-from partial_round_swap import prs
+from partial_round_swap.prs import prs
 
 def min_prs_test(n,schedule,weight_table,obj):
     obj_minimo = obj

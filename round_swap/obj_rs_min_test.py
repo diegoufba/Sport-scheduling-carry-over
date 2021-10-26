@@ -1,5 +1,5 @@
 from objetivo import objetivo
-from round_swap import rs
+from round_swap.rs import rs
 
 # Round Swap para Objetivo Minimo - Teste
 def min_rs_test(n,schedule,weight_table,obj):

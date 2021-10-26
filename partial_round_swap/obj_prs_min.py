@@ -1,5 +1,5 @@
-from partial_round_swap import prs
-from obj_prs import obj_prs
+from partial_round_swap.prs import prs
+from partial_round_swap.obj_prs import obj_prs
 
 def min_prs(n,schedule,weight_table,carry_over_table,obj):
 

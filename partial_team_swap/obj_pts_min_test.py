@@ -1,8 +1,5 @@
-from circle import circle_method
 from objetivo import objetivo
-from readInstanceWeight import getInstance
-from saveSchedule import save_solution
-from partial_team_swap import pts
+from partial_team_swap.pts import pts
 
 def min_pts_test(n,schedule,weight_table,obj):
     obj_minimo = obj
