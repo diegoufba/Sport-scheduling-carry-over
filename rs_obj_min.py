@@ -1,4 +1,5 @@
-from round_swap import rs,obj_rs
+from round_swap import rs
+from obj_rs import obj_rs
 
 def min_rs(n,schedule,weight_table,carry_over_table,obj):
 

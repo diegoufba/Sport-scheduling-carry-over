@@ -6,9 +6,11 @@ from readInstanceWeight import getInstance
 from saveSchedule import save_solution
 from rs_obj_min import min_rs
 from rs_obj_min_test import min_rs_test
+from prs_obj_min import min_prs
 from prs_obj_min_test import min_prs_test
 from ts_obj_min import min_ts_test
 from pts_obj_min_test import min_pts_test
+from vizing_professor import vizing
 
 # Escolhe o tamanho da instancia
 # Valores disponiveis: 6,10,12,14,16,18,20
@@ -20,12 +22,15 @@ weight_table, n = getInstance(f'instances/inst{instance_size}linearperturbacaoA.
 # Gera a solucao pelo metodo do circulo
 schedule = circle_method(n)
 
+# Gera a solucao pelo metodo do vizing
+schedule = vizing(n-1)
+
 # Calcula a funcao Objetivo do circulo e a tabela de carry over
 obj,carry_over_table = objetivo(schedule,weight_table)
 print('obj circulo:',obj)
 
 # Escolhe a operacao
-operacao ='rs'
+operacao ='prs'
 
 # Round Swap Objetivo Minimo
 if operacao == 'rs':
@@ -34,7 +39,8 @@ if operacao == 'rs':
 
 # Partial Round Swap Objetivo Minimo
 if operacao == 'prs':
-    min_prs_test(n,schedule,weight_table,obj)
+    #min_prs_test(n,schedule,weight_table,obj)
+    min_prs(n,schedule,weight_table,carry_over_table,obj)
 
 # Team Swap Objetivo Minimo
 if operacao == 'ts':

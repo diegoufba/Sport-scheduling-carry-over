@@ -10,6 +10,9 @@ def min_pts_test(n,schedule,weight_table,obj):
         for t2 in range(n-1):
             if t1 < t2:
                 for r in range(n-2):
+                    # Se t1 enfrenta t2 no round r, nao é possivel pts 
+                    if schedule[t1][r] == t2:
+                        continue
                     pts(schedule,r,t1,t2)
                     obj,carry_over_table = objetivo(schedule,weight_table)
                     if obj < obj_minimo:

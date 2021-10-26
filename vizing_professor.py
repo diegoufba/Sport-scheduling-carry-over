@@ -3,6 +3,7 @@ import networkx as nx
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from IPython.display import display, clear_output
+from numpy.lib import shape_base
 from pylab import rcParams
 
 def vizing(n):
@@ -225,10 +226,22 @@ def vizing(n):
           # desenha(n,aresta)
           continue
     k+=1
-  print(disponivel)
+  #print(disponivel)
   add_final_vertex(n,aresta,lista,adjacencia)
-  print(aresta)
-  desenha(n+1,aresta)
-  return aresta
 
-a = vizing(5)
+  schedule=[]
+  for i in range(n+1):
+    schedule.append([0]*(n))
+
+  for edge in aresta:
+    u,v = edge
+    r = aresta[u,v]
+    schedule[u][r] = v
+    schedule[v][r] = u
+  #desenha(n+1,aresta)
+  return schedule
+
+# schedule = vizing(5)
+
+# for line in schedule:
+#   print(line)
