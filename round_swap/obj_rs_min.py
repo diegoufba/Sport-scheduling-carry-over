@@ -10,6 +10,7 @@ def min_rs(n,schedule,weight_table,carry_over_table,obj):
         for r2 in range(n_rounds):
             if r1 < r2:
                 obj,c = obj_rs(obj_minimo,schedule,r1,r2,weight_table,carry_over_table)
+                #print(f'{r1}{r2}: {obj} ')
                 if obj >= obj_minimo:
                     pass
                 else:
