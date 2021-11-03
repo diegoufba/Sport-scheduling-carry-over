@@ -18,4 +18,5 @@ def min_ts(n,schedule,weight_table,carry_over_table,obj):
         if incremento < 0:
             ts(schedule,best_t1,best_t2)
             carry_over_table = best_carry_over_table
-    print('obj ts min:',obj_minimo)
+    #print('obj ts min:',obj_minimo)
+    return obj_minimo
