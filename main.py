@@ -19,10 +19,10 @@ from team_swap.obj_ts import obj_ts
 
 # Escolhe o tamanho da instancia
 # Valores disponiveis: 6,10,12,14,16,18,20
-instance_size = 6
+instance_size = 10
 
 # Metodos disponiveis: c-circle, v-vizing
-metodo = 'v'
+metodo = 'c'
 
 # Ler a instancia
 weight_table, n = getInstance(f'instances/inst{instance_size}linearperturbacaoA.xml')
@@ -40,7 +40,7 @@ obj,carry_over_table = objetivo(schedule,weight_table)
 print(f'obj {metodo}:',obj)
 
 # Escolhe a operacao
-operacao ='ts'
+operacao ='prs'
 
 # Round Swap Objetivo Minimo
 if operacao == 'rs':
@@ -49,8 +49,8 @@ if operacao == 'rs':
 
 # Partial Round Swap Objetivo Minimo
 if operacao == 'prs':
-    #min_prs_test(n,schedule,weight_table,obj)
     min_prs(n,schedule,weight_table,carry_over_table,obj)
+    #min_prs_test(n,schedule,weight_table,obj)
 
 # Team Swap Objetivo Minimo
 if operacao == 'ts':
