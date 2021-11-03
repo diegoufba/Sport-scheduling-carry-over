@@ -19,10 +19,10 @@ from team_swap.obj_ts import obj_ts
 
 # Escolhe o tamanho da instancia
 # Valores disponiveis: 6,10,12,14,16,18,20
-instance_size = 10
+instance_size = 6
 
 # Metodos disponiveis: c-circle, v-vizing
-metodo = 'c'
+metodo = 'v'
 
 # Ler a instancia
 weight_table, n = getInstance(f'instances/inst{instance_size}linearperturbacaoA.xml')
