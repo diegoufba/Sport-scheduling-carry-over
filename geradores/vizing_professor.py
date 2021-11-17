@@ -1,10 +1,10 @@
 import random
-import networkx as nx
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-from IPython.display import display, clear_output
-from numpy.lib import shape_base
-from pylab import rcParams
+# import networkx as nx
+# import matplotlib as mpl
+# import matplotlib.pyplot as plt
+# from IPython.display import display, clear_output
+# from numpy.lib import shape_base
+# from pylab import rcParams
 
 def vizing(n):
 
@@ -46,30 +46,30 @@ def vizing(n):
         if e != proibida:
           return e
       
-  def desenha(n,aresta):
-    G = nx.complete_graph(n) 
-    pos = nx.circular_layout(G,scale=2) 
+  # def desenha(n,aresta):
+  #   G = nx.complete_graph(n) 
+  #   pos = nx.circular_layout(G,scale=2) 
 
-    cm = plt.get_cmap('gist_rainbow')
-    low,high = 0,n
-    norm = mpl.colors.Normalize(vmin=low, vmax=high, clip=True)
-    mapper = mpl.cm.ScalarMappable(norm=norm, cmap=mpl.cm.coolwarm)
-    edge_colors = []
-    for i in aresta:
-      if aresta[i] == None: 
-        G.remove_edge(*i)
-      else:
-        edge_colors.append(cm(1.*aresta[i]/(n)))
-        # edge_colors.append(mapper.to_rgba(aresta[i]))
+  #   cm = plt.get_cmap('gist_rainbow')
+  #   low,high = 0,n
+  #   norm = mpl.colors.Normalize(vmin=low, vmax=high, clip=True)
+  #   mapper = mpl.cm.ScalarMappable(norm=norm, cmap=mpl.cm.coolwarm)
+  #   edge_colors = []
+  #   for i in aresta:
+  #     if aresta[i] == None: 
+  #       G.remove_edge(*i)
+  #     else:
+  #       edge_colors.append(cm(1.*aresta[i]/(n)))
+  #       # edge_colors.append(mapper.to_rgba(aresta[i]))
     
-    edge_labels = dict([((i[0],i[1]), aresta[i]) for i in aresta if aresta[i]!= None])
+  #   edge_labels = dict([((i[0],i[1]), aresta[i]) for i in aresta if aresta[i]!= None])
 
-    plt.clf()
-    clear_output(wait=True)
-    nx.draw(G, pos=pos, edge_color = edge_colors, with_labels=True, width=4)
-    # nx.draw_networkx_edge_labels(G,pos=pos,edge_labels=edge_labels)
-    plt.show()
-    plt.pause(.01)
+  #   plt.clf()
+  #   clear_output(wait=True)
+  #   nx.draw(G, pos=pos, edge_color = edge_colors, with_labels=True, width=4)
+  #   # nx.draw_networkx_edge_labels(G,pos=pos,edge_labels=edge_labels)
+  #   plt.show()
+  #   plt.pause(.01)
           
 
   # Entrada: o valor de n, em K_n

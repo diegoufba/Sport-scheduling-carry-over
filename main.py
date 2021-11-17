@@ -20,7 +20,7 @@ from team_swap.ts import ts
 from team_swap.obj_ts import obj_ts
 from c_profile import profile
 
-@profile
+#@profile
 def main():
     # Tamanho da instancia disponiveis: 6,10,12,14,16,18,20
     # Metodos disponiveis: c-circle, v-vizing
@@ -56,8 +56,8 @@ def main():
     # Team Swap Objetivo Minimo
     if operacao == 'ts':
         #ts_ils(n,schedule,weight_table,carry_over_table,obj)
-        #min_ts(n,schedule,weight_table,carry_over_table,obj)
-        ts_ils(n,weight_table)
+        min_ts(n,schedule,weight_table,carry_over_table,obj)
+        #ts_ils(n,weight_table)
         #min_ts_test(n,schedule,weight_table,obj)
 
     # Partial Team Swap Objetivo Minimo

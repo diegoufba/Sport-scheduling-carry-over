@@ -1,3 +1,4 @@
+from saveSchedule import save_solution
 from team_swap.ts import ts
 from team_swap.obj_ts import obj_ts
 
@@ -18,6 +19,7 @@ def min_ts(n,schedule,weight_table,carry_over_table,obj):
         if incremento < 0:
             ts(schedule,best_t1,best_t2)
             carry_over_table = best_carry_over_table
-    #print('obj ts min:',obj_minimo)
+    print('obj ts min:',obj_minimo)
+    save_solution(schedule)
 
     return obj_minimo

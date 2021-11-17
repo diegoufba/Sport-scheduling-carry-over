@@ -1,5 +1,4 @@
 import copy
-
 def obj_ts(obj,schedule,t1,t2,weight_table,carry_over_table):
     new_obj = obj
     aux_carry_over_table = [x[:] for x in carry_over_table]
