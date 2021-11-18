@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+import time
 from c_profile import profile
 import random
 from objetivo import objetivo
@@ -56,7 +58,7 @@ def RVND(s,weight_table):
 
     return s
 
-@profile
+#@profile
 def local_search(Imax,Iils,weight_table,n):
 
     schedule = vizing(n-1)
@@ -84,11 +86,17 @@ def local_search(Imax,Iils,weight_table,n):
 
             iterILS = iterILS + 1
         
+            time_linha.append(time.time() - start_time)
+            obj_linha.append(s_linha['obj'])
+
         if s_linha['obj'] < s_star['obj']:
             s_star = copy(s_linha)
+        
+        time_star.append(time.time() - start_time)
+        obj_star.append(s_star['obj'])
+        
 
     return s_star
-
 
 weight_table, n = getInstance(f'instances/inst{10}linearperturbacaoA.xml')
 schedule = vizing(n-1)
@@ -98,7 +106,20 @@ print(obj)
 
 s = {'schedule':schedule,'carry_over_table':carry_over_table,'obj':obj}
 #s = RVND(s,weight_table)
-s = local_search(10,10,weight_table,n)
+
+start_time = time.time()
+time_linha = []
+obj_linha = []
+time_star = []
+obj_star = []
+
+s = local_search(30,30,weight_table,n)
 save_solution(s['schedule'])
 
 print(s['obj'])
+
+plt.plot(time_linha,obj_linha)
+plt.plot(time_star,obj_star)
+plt.xlabel('tempo')
+plt.ylabel('objetivo')
+plt.show()
