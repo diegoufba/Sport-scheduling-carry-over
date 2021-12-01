@@ -32,10 +32,10 @@ def pts(schedule,r,t1,t2):
         teams.add(schedule[t1][r])
         teams.add(schedule[t2][r])
     
-    for team in teams:
+    # for team in teams:
 
-        team1 = schedule[team].index(t1)
-        team2 = schedule[team].index(t2)
-        schedule[team][team1],schedule[team][team2] = schedule[team][team2],schedule[team][team1]
+    #     team1 = schedule[team].index(t1)
+    #     team2 = schedule[team].index(t2)
+    #     schedule[team][team1],schedule[team][team2] = schedule[team][team2],schedule[team][team1]
     
     return schedule

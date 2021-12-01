@@ -5,7 +5,7 @@ import random
 from objetivo import objetivo
 from geradores.vizing_professor import vizing
 #from copy import deepcopy
-from neighborhoods import ts_neighborhood,rs_neighborhood, prs_neighborhood
+from neighborhoods import ts_neighborhood,rs_neighborhood, prs_neighborhood, pts_neighborhood
 
 from partial_round_swap.prs import prs
 from partial_team_swap.pts import pts
@@ -44,7 +44,7 @@ def pertubacao(s,weight_table):
 
 def RVND(s,weight_table):
     s_rvnd = copy(s)
-    neighborhood_list = [ts_neighborhood,rs_neighborhood,prs_neighborhood]
+    neighborhood_list = [ts_neighborhood,rs_neighborhood,prs_neighborhood,pts_neighborhood]
 
     while neighborhood_list:
         choosen_neighborhood =  random.choice(neighborhood_list)
@@ -52,7 +52,7 @@ def RVND(s,weight_table):
 
         if s_rvnd['obj'] < s['obj']:
             s = copy(s_rvnd)
-            neighborhood_list = [ts_neighborhood,rs_neighborhood,prs_neighborhood]
+            neighborhood_list = [ts_neighborhood,rs_neighborhood,prs_neighborhood,pts_neighborhood]
         else:
             neighborhood_list.remove(choosen_neighborhood)
 
@@ -113,7 +113,7 @@ obj_linha = []
 time_star = []
 obj_star = []
 
-s = local_search(30,30,weight_table,n)
+s = local_search(10,10,weight_table,n)
 save_solution(s['schedule'])
 
 print(s['obj'])

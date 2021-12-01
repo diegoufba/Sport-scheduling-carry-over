@@ -2,7 +2,7 @@ import copy
 
 def obj_rs(obj,schedule,r1,r2,weight_table,carry_over_table):
     new_obj = obj
-    aux_carry_over_table = copy.deepcopy(carry_over_table)
+    aux_carry_over_table = [x[:] for x in carry_over_table]
     n_times = len(schedule)
 
     if r1 == 0 and r2==n_times-2:
