@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import time
 from c_profile import profile
 import random
+from geradores.circle import circle_method
 from objetivo import objetivo
 from geradores.vizing_professor import vizing
 #from copy import deepcopy
@@ -45,6 +46,7 @@ def pertubacao(s,weight_table):
 def RVND(s,weight_table):
     s_rvnd = copy(s)
     neighborhood_list = [ts_neighborhood,rs_neighborhood,prs_neighborhood,pts_neighborhood]
+    #neighborhood_list = [ts_neighborhood]
 
     while neighborhood_list:
         choosen_neighborhood =  random.choice(neighborhood_list)
@@ -53,6 +55,7 @@ def RVND(s,weight_table):
         if s_rvnd['obj'] < s['obj']:
             s = copy(s_rvnd)
             neighborhood_list = [ts_neighborhood,rs_neighborhood,prs_neighborhood,pts_neighborhood]
+            #neighborhood_list = [ts_neighborhood]
         else:
             neighborhood_list.remove(choosen_neighborhood)
 
@@ -100,6 +103,7 @@ def local_search(Imax,Iils,weight_table,n):
 
 weight_table, n = getInstance(f'instances/inst{10}linearperturbacaoA.xml')
 schedule = vizing(n-1)
+#schedule = circle_method(n)
 obj,carry_over_table = objetivo(schedule,weight_table)
 
 print(obj)
@@ -117,7 +121,6 @@ s = local_search(10,10,weight_table,n)
 save_solution(s['schedule'])
 
 print(s['obj'])
-
 plt.plot(time_linha,obj_linha)
 plt.plot(time_star,obj_star)
 plt.xlabel('tempo')
