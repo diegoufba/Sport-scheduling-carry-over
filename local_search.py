@@ -1,4 +1,5 @@
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
+import math
 import time
 from c_profile import profile
 import random
@@ -40,13 +41,14 @@ def pertubacao(s,weight_table):
             if s['schedule'][t1][r] != t2:
                 pts(s['schedule'],r,t1,t2)
     
-    s['obj'],s['carry_over_table'] = objetivo(schedule,weight_table)
+    s['obj'],s['carry_over_table'] = objetivo(s['schedule'],weight_table)
 
 
 def RVND(s,weight_table):
     s_rvnd = copy(s)
-    neighborhood_list = [ts_neighborhood,rs_neighborhood,prs_neighborhood,pts_neighborhood]
-    #neighborhood_list = [ts_neighborhood]
+    #neighborhood_list = [ts_neighborhood,rs_neighborhood,prs_neighborhood,pts_neighborhood]
+    neighborhood_list = [ts_neighborhood,rs_neighborhood,prs_neighborhood]
+    #neighborhood_list = [pts_neighborhood]
 
     while neighborhood_list:
         choosen_neighborhood =  random.choice(neighborhood_list)
@@ -54,8 +56,9 @@ def RVND(s,weight_table):
 
         if s_rvnd['obj'] < s['obj']:
             s = copy(s_rvnd)
-            neighborhood_list = [ts_neighborhood,rs_neighborhood,prs_neighborhood,pts_neighborhood]
-            #neighborhood_list = [ts_neighborhood]
+            #neighborhood_list = [ts_neighborhood,rs_neighborhood,prs_neighborhood,pts_neighborhood]
+            neighborhood_list = [ts_neighborhood,rs_neighborhood,prs_neighborhood]
+            #neighborhood_list = [pts_neighborhood]
         else:
             neighborhood_list.remove(choosen_neighborhood)
 
@@ -64,10 +67,11 @@ def RVND(s,weight_table):
 #@profile
 def local_search(Imax,Iils,weight_table,n):
 
-    schedule = vizing(n-1)
-    obj,carry_over_table = objetivo(schedule,weight_table)
-    s_star = {'schedule':schedule,'carry_over_table':carry_over_table,'obj':obj}
+    # schedule = vizing(n-1)
+    # obj,carry_over_table = objetivo(schedule,weight_table)
+    # s_star = {'schedule':schedule,'carry_over_table':carry_over_table,'obj':obj}
 
+    s_star = {'obj':math.inf}
     for i in range(Imax):
         # Gera solucao inicial por Vizing
         schedule = vizing(n-1)
@@ -88,41 +92,59 @@ def local_search(Imax,Iils,weight_table,n):
             pertubacao(s,weight_table)
 
             iterILS = iterILS + 1
-        
-            time_linha.append(time.time() - start_time)
-            obj_linha.append(s_linha['obj'])
 
+            time_linha.write(f'{time.time() - start_time}\n')
+            obj_linha.write(f"{s_linha['obj']}\n")
+            #time_linha.append(time.time() - start_time)
+            #obj_linha.append(s_linha['obj'])
+
+        #print(s_star['obj'])
         if s_linha['obj'] < s_star['obj']:
             s_star = copy(s_linha)
         
-        time_star.append(time.time() - start_time)
-        obj_star.append(s_star['obj'])
+        time_star.write(f'{time.time() - start_time}\n')
+        obj_star.write(f"{s_star['obj']}\n")
+        #time_star.append(time.time() - start_time)
+        #obj_star.append(s_star['obj'])
         
 
     return s_star
 
+# 10 - 315
+#random.seed(10)
+time_linha = open('time_linha.txt', 'w+')
+time_star = open('time_star.txt', 'w+')
+obj_linha = open('obj_linha.txt', 'w+')
+obj_star = open('obj_star.txt', 'w+')
+
 weight_table, n = getInstance(f'instances/inst{10}linearperturbacaoA.xml')
-schedule = vizing(n-1)
+#schedule = vizing(n-1)
+#print(schedule)
 #schedule = circle_method(n)
-obj,carry_over_table = objetivo(schedule,weight_table)
+#obj,carry_over_table = objetivo(schedule,weight_table)
 
-print(obj)
+#print(obj)
 
-s = {'schedule':schedule,'carry_over_table':carry_over_table,'obj':obj}
+#s = {'schedule':schedule,'carry_over_table':carry_over_table,'obj':obj}
 #s = RVND(s,weight_table)
 
 start_time = time.time()
-time_linha = []
-obj_linha = []
-time_star = []
-obj_star = []
+# time_linha = []
+# obj_linha = []
+# time_star = []
+# obj_star = []
 
-s = local_search(10,10,weight_table,n)
+s = local_search(20,20,weight_table,n)
 save_solution(s['schedule'])
 
 print(s['obj'])
-plt.plot(time_linha,obj_linha)
-plt.plot(time_star,obj_star)
-plt.xlabel('tempo')
-plt.ylabel('objetivo')
-plt.show()
+# plt.plot(time_linha,obj_linha)
+# plt.plot(time_star,obj_star)
+# plt.xlabel('tempo')
+# plt.ylabel('objetivo')
+# plt.show()
+
+time_linha.close()
+time_star.close()
+obj_linha.close()
+obj_star.close()

@@ -100,5 +100,6 @@ def pts_neighborhood(s,weight_table):
         s['carry_over_table'] = best_carry_over_table
         s['obj'] = obj_minimo
 
+    #print(s['obj'])
     return s
     #print('obj ts min:',obj_minimo)
