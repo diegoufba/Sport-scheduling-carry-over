@@ -1,5 +1,5 @@
-from objetivo import objetivo
-from partial_round_swap.prs import prs
+# from objetivo import objetivo
+# from partial_round_swap.prs import prs
 
 def obj_prs(obj,schedule,t,r1,r2,weight_table,carry_over_table):
     new_obj = obj
@@ -201,9 +201,9 @@ def obj_prs(obj,schedule,t,r1,r2,weight_table,carry_over_table):
     return new_obj, aux_carry_over_table
 
 
-def obj_prs2(obj,schedule,t,r1,r2,weight_table,carry_over_table):
-    aux_schedule = [x[:] for x in schedule]
-    prs(schedule,t,r1,r2)
-    new_obj,aux_carry_over_table = objetivo(aux_schedule,weight_table)
+# def obj_prs_test(obj,schedule,t,r1,r2,weight_table,carry_over_table):
+#     aux_schedule = [x[:] for x in schedule]
+#     prs(schedule,t,r1,r2)
+#     new_obj,aux_carry_over_table = objetivo(aux_schedule,weight_table)
 
-    return new_obj, aux_carry_over_table
+#     return new_obj, aux_carry_over_table

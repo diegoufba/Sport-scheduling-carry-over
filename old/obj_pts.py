@@ -1,5 +1,5 @@
 from geradores.circle import circle_method
-from geradores.vizing_professor import vizing
+from geradores.vizing import vizing
 from objetivo import objetivo
 from readInstanceWeight import getInstance
 from partial_team_swap.pts import pts

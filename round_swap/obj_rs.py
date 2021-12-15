@@ -1,5 +1,5 @@
-from objetivo import objetivo
-from round_swap.rs import rs
+# from objetivo import objetivo
+# from round_swap.rs import rs
 
 def obj_rs(obj,schedule,r1,r2,weight_table,carry_over_table):
     new_obj = obj
@@ -188,9 +188,9 @@ def obj_rs(obj,schedule,r1,r2,weight_table,carry_over_table):
 
     return new_obj, aux_carry_over_table
 
-def obj_rs2(obj,schedule,r1,r2,weight_table,carry_over_table):
-    aux_schedule = [x[:] for x in schedule]
-    rs(schedule,r1,r2)
-    new_obj,aux_carry_over_table = objetivo(aux_schedule,weight_table)
+# def obj_rs_test(obj,schedule,r1,r2,weight_table,carry_over_table):
+#     aux_schedule = [x[:] for x in schedule]
+#     rs(schedule,r1,r2)
+#     new_obj,aux_carry_over_table = objetivo(aux_schedule,weight_table)
 
-    return new_obj, aux_carry_over_table
+#     return new_obj, aux_carry_over_table

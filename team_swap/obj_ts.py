@@ -1,5 +1,5 @@
-from objetivo import objetivo
-from team_swap.ts import ts
+# from objetivo import objetivo
+# from team_swap.ts import ts
 
 def obj_ts(obj,schedule,t1,t2,weight_table,carry_over_table):
     new_obj = obj
@@ -218,9 +218,9 @@ def obj_ts(obj,schedule,t1,t2,weight_table,carry_over_table):
 
     return new_obj, aux_carry_over_table
 
-def obj_ts2(obj,schedule,t1,t2,weight_table,carry_over_table):
-    aux_schedule = [x[:] for x in schedule]
-    ts(schedule,t1,t2)
-    new_obj,aux_carry_over_table = objetivo(aux_schedule,weight_table)
+# def obj_ts_test(obj,schedule,t1,t2,weight_table,carry_over_table):
+#     aux_schedule = [x[:] for x in schedule]
+#     ts(schedule,t1,t2)
+#     new_obj,aux_carry_over_table = objetivo(aux_schedule,weight_table)
 
-    return new_obj, aux_carry_over_table
+#     return new_obj, aux_carry_over_table

@@ -1,19 +1,17 @@
-from objetivo import objetivo
-from partial_team_swap.pts import pts
-
+# from objetivo import objetivo
+# from partial_team_swap.pts import pts
 import more_itertools as mit
 
 def obj_pts(obj,schedule,r,t1,t2,weight_table,carry_over_table):    
 
     new_obj = obj
     aux_carry_over_table = [x[:] for x in carry_over_table]
-    aux_schedule = [x[:] for x in schedule]
-    n_times = len(aux_schedule)
+    n_times = len(schedule)
 
     initial_round = r
     rounds = [r]
-    for i in range (len(aux_schedule)-1):
-        next_r = aux_schedule[t1].index(aux_schedule[t2][r])
+    for i in range (len(schedule)-1):
+        next_r = schedule[t1].index(schedule[t2][r])
 
         if next_r == initial_round:
             break
@@ -31,29 +29,28 @@ def obj_pts(obj,schedule,r,t1,t2,weight_table,carry_over_table):
     #print(times_consecutivos)
 
     for times in times_consecutivos:
-        #print('kk')
         if len(times) == 1:
             r01 = times[0]
 
-            t11 = aux_schedule[t1][r01]
-            t21 = aux_schedule[t2][r01]
+            t11 = schedule[t1][r01]
+            t21 = schedule[t2][r01]
             
             if r01 == 0:
-                t11e = aux_schedule[t1][-1]
-                t21e = aux_schedule[t2][-1]
+                t11e = schedule[t1][-1]
+                t21e = schedule[t2][-1]
 
             else:
-                t11e = aux_schedule[t1][r01-1]
-                t21e = aux_schedule[t2][r01-1]
+                t11e = schedule[t1][r01-1]
+                t21e = schedule[t2][r01-1]
 
             if r01 == n_times-2:
 
-                t11d = aux_schedule[t1][0]
-                t21d = aux_schedule[t2][0]   
+                t11d = schedule[t1][0]
+                t21d = schedule[t2][0]   
             else:
 
-                t11d = aux_schedule[t1][r01+1]
-                t21d = aux_schedule[t2][r01+1]
+                t11d = schedule[t1][r01+1]
+                t21d = schedule[t2][r01+1]
 
             new_obj -= (
                 (weight_table[t11e][t11] * aux_carry_over_table[t11e][t11]**2) + 
@@ -93,28 +90,28 @@ def obj_pts(obj,schedule,r,t1,t2,weight_table,carry_over_table):
             r01 = times[0]
             r02 = times[-1]
             
-            t11 = aux_schedule[t1][r01]
-            t21 = aux_schedule[t2][r01]
+            t11 = schedule[t1][r01]
+            t21 = schedule[t2][r01]
 
-            t12 = aux_schedule[t1][r02]
-            t22 = aux_schedule[t2][r02]
+            t12 = schedule[t1][r02]
+            t22 = schedule[t2][r02]
 
             if r01 == 0:
-                t11e = aux_schedule[t1][-1]
-                t21e = aux_schedule[t2][-1]
+                t11e = schedule[t1][-1]
+                t21e = schedule[t2][-1]
 
             else:
-                t11e = aux_schedule[t1][r01-1]
-                t21e = aux_schedule[t2][r01-1]
+                t11e = schedule[t1][r01-1]
+                t21e = schedule[t2][r01-1]
 
             if r02 == n_times-2:
 
-                t12d = aux_schedule[t1][0]
-                t22d = aux_schedule[t2][0]   
+                t12d = schedule[t1][0]
+                t22d = schedule[t2][0]   
             else:
 
-                t12d = aux_schedule[t1][r02+1]
-                t22d = aux_schedule[t2][r02+1]
+                t12d = schedule[t1][r02+1]
+                t22d = schedule[t2][r02+1]
 
             new_obj -= (
                 (weight_table[t11e][t11] * aux_carry_over_table[t11e][t11]**2) + 
@@ -327,70 +324,11 @@ def obj_pts(obj,schedule,r,t1,t2,weight_table,carry_over_table):
                     (weight_table[te2][t1] * aux_carry_over_table[te2][t1]**2)+
                     (weight_table[t1][td2] * aux_carry_over_table[t1][td2]**2)
                 )
-    # for r in rounds:
-    #     l1,l2 = [i for i in range(n_times) if aux_schedule[i][r] == t1 or aux_schedule[i][r] == t2]
-    #     t11 = aux_schedule[l1][r]
-    #     t21 = aux_schedule[l2][r]
-        
-    #     if r == 0:
-    #         t11e = aux_schedule[l1][-1]
-    #         t21e = aux_schedule[l2][-1]
-
-    #     else:
-    #         t11e = aux_schedule[l1][r-1]
-    #         t21e = aux_schedule[l2][r-1]
-
-    #     if r == n_times-2:
-
-    #         t11d = aux_schedule[l1][0]
-    #         t21d = aux_schedule[l2][0]   
-    #     else:
-
-    #         t11d = aux_schedule[l1][r+1]
-    #         t21d = aux_schedule[l2][r+1]
-
-    #     new_obj -= (
-    #         (weight_table[t11e][t11] * aux_carry_over_table[t11e][t11]**2) + 
-    #         (weight_table[t21e][t21] * aux_carry_over_table[t21e][t21]**2) + 
-    #         (weight_table[t11][t11d] * aux_carry_over_table[t11][t11d]**2) +
-    #         (weight_table[t21][t21d] * aux_carry_over_table[t21][t21d]**2) +
-
-    #         (weight_table[t11e][t21] * aux_carry_over_table[t11e][t21]**2) + 
-    #         (weight_table[t21e][t11] * aux_carry_over_table[t21e][t11]**2) + 
-    #         (weight_table[t21][t11d] * aux_carry_over_table[t21][t11d]**2) +
-    #         (weight_table[t11][t21d] * aux_carry_over_table[t11][t21d]**2)     
-    #     )
-
-    #     aux_carry_over_table[t11e][t11] -=1
-    #     aux_carry_over_table[t21e][t21] -=1
-    #     aux_carry_over_table[t11][t11d] -=1
-    #     aux_carry_over_table[t21][t21d] -=1
-
-    #     aux_carry_over_table[t11e][t21] +=1
-    #     aux_carry_over_table[t21e][t11] +=1
-    #     aux_carry_over_table[t21][t11d] +=1
-    #     aux_carry_over_table[t11][t21d] +=1       
-
-    #     new_obj += (
-    #         (weight_table[t11e][t11] * aux_carry_over_table[t11e][t11]**2) + 
-    #         (weight_table[t21e][t21] * aux_carry_over_table[t21e][t21]**2) + 
-    #         (weight_table[t11][t11d] * aux_carry_over_table[t11][t11d]**2) +
-    #         (weight_table[t21][t21d] * aux_carry_over_table[t21][t21d]**2) +
-
-    #         (weight_table[t11e][t21] * aux_carry_over_table[t11e][t21]**2) + 
-    #         (weight_table[t21e][t11] * aux_carry_over_table[t21e][t11]**2) + 
-    #         (weight_table[t21][t11d] * aux_carry_over_table[t21][t11d]**2) +
-    #         (weight_table[t11][t21d] * aux_carry_over_table[t11][t21d]**2)     
-    #     )
-
-    #     aux_schedule[l1][r],aux_schedule[l2][r] = aux_schedule[l2][r],aux_schedule[l1][r]
-
     return new_obj, aux_carry_over_table
 
 
-def obj_pts2(obj,schedule,r,t1,t2,weight_table,carry_over_table):
-    aux_schedule = [x[:] for x in schedule]
-    pts(aux_schedule,r,t1,t2)
-    new_obj,aux_carry_over_table = objetivo(aux_schedule,weight_table)
+# def obj_pts_test(obj,schedule,r,t1,t2,weight_table,carry_over_table):
+#     pts(schedule,r,t1,t2)
+#     new_obj,aux_carry_over_table = objetivo(schedule,weight_table)
 
-    return new_obj, aux_carry_over_table
+#     return new_obj, aux_carry_over_table

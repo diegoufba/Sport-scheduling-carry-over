@@ -29,7 +29,6 @@ def ts_neighborhood(s,weight_table):
         s['obj'] = obj_minimo
 
     return s
-    #print('obj ts min:',obj_minimo)
 
 def rs_neighborhood(s,weight_table):
     obj_minimo = s['obj']
@@ -51,7 +50,6 @@ def rs_neighborhood(s,weight_table):
         s['obj'] = obj_minimo
 
     return s
-    #print('obj rs min:',obj_minimo)
 
 def prs_neighborhood(s,weight_table):
     obj_minimo = s['obj']
@@ -75,7 +73,6 @@ def prs_neighborhood(s,weight_table):
         s['obj'] = obj_minimo
             
     return s
-    #print('obj prs min:',obj_minimo)
 
 def pts_neighborhood(s,weight_table):
     obj_minimo = s['obj']
@@ -96,11 +93,8 @@ def pts_neighborhood(s,weight_table):
                     best_carry_over_table = c
 
     if obj_minimo < obj_inicial:
-        #print(obj_inicial,best_r,best_t1,best_t2)
         pts(s['schedule'],best_r,best_t1,best_t2)
         s['carry_over_table'] = best_carry_over_table
         s['obj'] = obj_minimo
 
-    #print(s['obj'])
     return s
-    #print('obj ts min:',obj_minimo)

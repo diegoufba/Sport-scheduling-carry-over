@@ -1,6 +1,6 @@
 from saveSchedule import save_solution
 import math
-from geradores.vizing_professor import vizing
+from geradores.vizing import vizing
 from objetivo import objetivo
 from team_swap.obj_ts_min import min_ts
 from team_swap.obj_ts_min_test import min_ts_test
