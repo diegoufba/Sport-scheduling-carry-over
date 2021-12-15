@@ -30,65 +30,8 @@ def obj_pts(obj,schedule,r,t1,t2,weight_table,carry_over_table):
         times_consecutivos.pop(0)
     #print(times_consecutivos)
 
-    for r in rounds:
-        l1,l2 = [i for i in range(n_times) if aux_schedule[i][r] == t1 or aux_schedule[i][r] == t2]
-        t11 = aux_schedule[l1][r]
-        t21 = aux_schedule[l2][r]
-        
-        if r == 0:
-            t11e = aux_schedule[l1][-1]
-            t21e = aux_schedule[l2][-1]
-
-        else:
-            t11e = aux_schedule[l1][r-1]
-            t21e = aux_schedule[l2][r-1]
-
-        if r == n_times-2:
-
-            t11d = aux_schedule[l1][0]
-            t21d = aux_schedule[l2][0]   
-        else:
-
-            t11d = aux_schedule[l1][r+1]
-            t21d = aux_schedule[l2][r+1]
-
-        new_obj -= (
-            (weight_table[t11e][t11] * aux_carry_over_table[t11e][t11]**2) + 
-            (weight_table[t21e][t21] * aux_carry_over_table[t21e][t21]**2) + 
-            (weight_table[t11][t11d] * aux_carry_over_table[t11][t11d]**2) +
-            (weight_table[t21][t21d] * aux_carry_over_table[t21][t21d]**2) +
-
-            (weight_table[t11e][t21] * aux_carry_over_table[t11e][t21]**2) + 
-            (weight_table[t21e][t11] * aux_carry_over_table[t21e][t11]**2) + 
-            (weight_table[t21][t11d] * aux_carry_over_table[t21][t11d]**2) +
-            (weight_table[t11][t21d] * aux_carry_over_table[t11][t21d]**2)     
-        )
-
-        aux_carry_over_table[t11e][t11] -=1
-        aux_carry_over_table[t21e][t21] -=1
-        aux_carry_over_table[t11][t11d] -=1
-        aux_carry_over_table[t21][t21d] -=1
-
-        aux_carry_over_table[t11e][t21] +=1
-        aux_carry_over_table[t21e][t11] +=1
-        aux_carry_over_table[t21][t11d] +=1
-        aux_carry_over_table[t11][t21d] +=1       
-
-        new_obj += (
-            (weight_table[t11e][t11] * aux_carry_over_table[t11e][t11]**2) + 
-            (weight_table[t21e][t21] * aux_carry_over_table[t21e][t21]**2) + 
-            (weight_table[t11][t11d] * aux_carry_over_table[t11][t11d]**2) +
-            (weight_table[t21][t21d] * aux_carry_over_table[t21][t21d]**2) +
-
-            (weight_table[t11e][t21] * aux_carry_over_table[t11e][t21]**2) + 
-            (weight_table[t21e][t11] * aux_carry_over_table[t21e][t11]**2) + 
-            (weight_table[t21][t11d] * aux_carry_over_table[t21][t11d]**2) +
-            (weight_table[t11][t21d] * aux_carry_over_table[t11][t21d]**2)     
-        )
-
-        aux_schedule[l1][r],aux_schedule[l2][r] = aux_schedule[l2][r],aux_schedule[l1][r]
-
     for times in times_consecutivos:
+        #print('kk')
         if len(times) == 1:
             r01 = times[0]
 
@@ -206,6 +149,241 @@ def obj_pts(obj,schedule,r,t1,t2,weight_table,carry_over_table):
                 (weight_table[t22][t12d] * aux_carry_over_table[t22][t12d]**2) +
                 (weight_table[t12][t22d] * aux_carry_over_table[t12][t22d]**2)     
             )
+    for i in range(n_times):     
+        if i != t1 and i!= t2:
+            r1 = schedule[i].index(t1)
+            r2 = schedule[i].index(t2)
+            if r1 not in rounds:
+                continue
+            if r1 > r2:
+                r1,r2 = r2,r1
+                t1,t2 = t2,t1
+            if r1 == 0 and r2==n_times-2:
+                td1 = schedule[i][r1+1]
+                te2 = schedule[i][r2-1]
+
+                new_obj -= (
+                    (weight_table[t2][t1] * aux_carry_over_table[t2][t1]**2) + 
+                    (weight_table[t1][td1] * aux_carry_over_table[t1][td1]**2) + 
+                    (weight_table[te2][t2] * aux_carry_over_table[te2][t2]**2) +
+
+                    (weight_table[t1][t2] * aux_carry_over_table[t1][t2]**2) +
+                    (weight_table[t2][td1] * aux_carry_over_table[t2][td1]**2) +
+                    (weight_table[te2][t1] * aux_carry_over_table[te2][t1]**2)
+                )
+
+                aux_carry_over_table[t2][t1] -=1
+                aux_carry_over_table[t1][td1] -=1
+                aux_carry_over_table[te2][t2] -=1
+                aux_carry_over_table[t1][t2] +=1
+                aux_carry_over_table[t2][td1] +=1
+                aux_carry_over_table[te2][t1] +=1
+
+                new_obj += (
+                    (weight_table[t2][t1] * aux_carry_over_table[t2][t1]**2) + 
+                    (weight_table[t1][td1] * aux_carry_over_table[t1][td1]**2) + 
+                    (weight_table[te2][t2] * aux_carry_over_table[te2][t2]**2) +
+
+                    (weight_table[t1][t2] * aux_carry_over_table[t1][t2]**2) +
+                    (weight_table[t2][td1] * aux_carry_over_table[t2][td1]**2) +
+                    (weight_table[te2][t1] * aux_carry_over_table[te2][t1]**2)
+                )
+            elif r2-r1 == 1:
+            
+                t1 = schedule[i][r1]
+                t2 = schedule[i][r2]
+
+                if r1 != 0:
+                    te1 = schedule[i][r1-1]
+                else:
+                    te1 = schedule[i][n_times-2]
+                if r2 != n_times-2:
+                    td2 = schedule[i][r2+1]
+                else:
+                    td2 = schedule[i][0]
+                
+                new_obj -= (
+                    (weight_table[t1][t2] * aux_carry_over_table[t1][t2]**2) + 
+                    (weight_table[te1][t1] * aux_carry_over_table[te1][t1]**2) + 
+                    (weight_table[t2][td2] * aux_carry_over_table[t2][td2]**2) +
+
+                    (weight_table[t2][t1] * aux_carry_over_table[t2][t1]**2) +
+                    (weight_table[t1][td2] * aux_carry_over_table[t1][td2]**2) +
+                    (weight_table[te1][t2] * aux_carry_over_table[te1][t2]**2)
+                )
+
+                aux_carry_over_table[t1][t2] -=1
+                aux_carry_over_table[te1][t1] -=1
+                aux_carry_over_table[t2][td2] -=1
+                aux_carry_over_table[t2][t1] +=1
+                aux_carry_over_table[t1][td2] +=1
+                aux_carry_over_table[te1][t2] +=1
+
+                new_obj += (
+                    (weight_table[t1][t2] * aux_carry_over_table[t1][t2]**2) + 
+                    (weight_table[te1][t1] * aux_carry_over_table[te1][t1]**2) + 
+                    (weight_table[t2][td2] * aux_carry_over_table[t2][td2]**2) +
+
+                    (weight_table[t2][t1] * aux_carry_over_table[t2][t1]**2) +
+                    (weight_table[t1][td2] * aux_carry_over_table[t1][td2]**2) +
+                    (weight_table[te1][t2] * aux_carry_over_table[te1][t2]**2)
+                )
+            elif r2-r1 == 2:
+                t1 = schedule[i][r1]
+                t2 = schedule[i][r2]
+
+                if r1 != 0:
+                    te1 = schedule[i][r1-1]
+                else:
+                    te1 = schedule[i][n_times-2]
+
+                td1 = schedule[i][r1+1]
+
+                if r2 != n_times-2:
+                    td2 = schedule[i][r2+1]
+                else:
+                    td2 = schedule[i][0]
+
+                new_obj -= (
+                    (weight_table[te1][t1] * aux_carry_over_table[te1][t1]**2) + 
+                    (weight_table[t1][td1] * aux_carry_over_table[t1][td1]**2) + 
+                    (weight_table[td1][t2] * aux_carry_over_table[td1][t2]**2) +
+                    (weight_table[t2][td2] * aux_carry_over_table[t2][td2]**2) +
+
+                    (weight_table[td1][t1] * aux_carry_over_table[td1][t1]**2) +
+                    (weight_table[te1][t2] * aux_carry_over_table[te1][t2]**2)+
+                    (weight_table[t2][td1] * aux_carry_over_table[t2][td1]**2)+
+                    (weight_table[t1][td2] * aux_carry_over_table[t1][td2]**2)
+                )
+
+                aux_carry_over_table[te1][t1] -=1
+                aux_carry_over_table[t1][td1] -=1
+                aux_carry_over_table[td1][t2] -=1
+                aux_carry_over_table[t2][td2] -=1
+
+                aux_carry_over_table[td1][t1] +=1
+                aux_carry_over_table[te1][t2] +=1
+                aux_carry_over_table[t2][td1] +=1
+                aux_carry_over_table[t1][td2] +=1
+
+                new_obj += (
+                    (weight_table[te1][t1] * aux_carry_over_table[te1][t1]**2) + 
+                    (weight_table[t1][td1] * aux_carry_over_table[t1][td1]**2) + 
+                    (weight_table[td1][t2] * aux_carry_over_table[td1][t2]**2) +
+                    (weight_table[t2][td2] * aux_carry_over_table[t2][td2]**2) +
+
+                    (weight_table[td1][t1] * aux_carry_over_table[td1][t1]**2) +
+                    (weight_table[te1][t2] * aux_carry_over_table[te1][t2]**2)+
+                    (weight_table[t2][td1] * aux_carry_over_table[t2][td1]**2)+
+                    (weight_table[t1][td2] * aux_carry_over_table[t1][td2]**2)
+                )
+
+            elif r2-r1 >= 3:
+                t1 = schedule[i][r1]
+                t2 = schedule[i][r2]
+
+                td1 = schedule[i][r1+1]
+                te2 = schedule[i][r2-1]
+
+                if r1 != 0:
+                    te1 = schedule[i][r1-1]
+                else:
+                    te1 = schedule[i][n_times-2]
+                if r2 != n_times-2:
+                    td2 = schedule[i][r2+1]
+                else:
+                    td2 = schedule[i][0]
+
+                new_obj -= (
+                    (weight_table[te1][t1] * aux_carry_over_table[te1][t1]**2) + 
+                    (weight_table[t1][td1] * aux_carry_over_table[t1][td1]**2) + 
+                    (weight_table[te2][t2] * aux_carry_over_table[te2][t2]**2) +
+                    (weight_table[t2][td2] * aux_carry_over_table[t2][td2]**2) +
+
+                    (weight_table[te1][t2] * aux_carry_over_table[te1][t2]**2) +
+                    (weight_table[t2][td1] * aux_carry_over_table[t2][td1]**2)+
+                    (weight_table[te2][t1] * aux_carry_over_table[te2][t1]**2)+
+                    (weight_table[t1][td2] * aux_carry_over_table[t1][td2]**2)
+                )
+
+                aux_carry_over_table[te1][t1] -=1
+                aux_carry_over_table[t1][td1] -=1
+                aux_carry_over_table[te2][t2] -=1
+                aux_carry_over_table[t2][td2] -=1
+
+                aux_carry_over_table[te1][t2] +=1
+                aux_carry_over_table[t2][td1] +=1
+                aux_carry_over_table[te2][t1] +=1
+                aux_carry_over_table[t1][td2] +=1
+
+                new_obj += (
+                    (weight_table[te1][t1] * aux_carry_over_table[te1][t1]**2) + 
+                    (weight_table[t1][td1] * aux_carry_over_table[t1][td1]**2) + 
+                    (weight_table[te2][t2] * aux_carry_over_table[te2][t2]**2) +
+                    (weight_table[t2][td2] * aux_carry_over_table[t2][td2]**2) +
+
+                    (weight_table[te1][t2] * aux_carry_over_table[te1][t2]**2) +
+                    (weight_table[t2][td1] * aux_carry_over_table[t2][td1]**2)+
+                    (weight_table[te2][t1] * aux_carry_over_table[te2][t1]**2)+
+                    (weight_table[t1][td2] * aux_carry_over_table[t1][td2]**2)
+                )
+    # for r in rounds:
+    #     l1,l2 = [i for i in range(n_times) if aux_schedule[i][r] == t1 or aux_schedule[i][r] == t2]
+    #     t11 = aux_schedule[l1][r]
+    #     t21 = aux_schedule[l2][r]
+        
+    #     if r == 0:
+    #         t11e = aux_schedule[l1][-1]
+    #         t21e = aux_schedule[l2][-1]
+
+    #     else:
+    #         t11e = aux_schedule[l1][r-1]
+    #         t21e = aux_schedule[l2][r-1]
+
+    #     if r == n_times-2:
+
+    #         t11d = aux_schedule[l1][0]
+    #         t21d = aux_schedule[l2][0]   
+    #     else:
+
+    #         t11d = aux_schedule[l1][r+1]
+    #         t21d = aux_schedule[l2][r+1]
+
+    #     new_obj -= (
+    #         (weight_table[t11e][t11] * aux_carry_over_table[t11e][t11]**2) + 
+    #         (weight_table[t21e][t21] * aux_carry_over_table[t21e][t21]**2) + 
+    #         (weight_table[t11][t11d] * aux_carry_over_table[t11][t11d]**2) +
+    #         (weight_table[t21][t21d] * aux_carry_over_table[t21][t21d]**2) +
+
+    #         (weight_table[t11e][t21] * aux_carry_over_table[t11e][t21]**2) + 
+    #         (weight_table[t21e][t11] * aux_carry_over_table[t21e][t11]**2) + 
+    #         (weight_table[t21][t11d] * aux_carry_over_table[t21][t11d]**2) +
+    #         (weight_table[t11][t21d] * aux_carry_over_table[t11][t21d]**2)     
+    #     )
+
+    #     aux_carry_over_table[t11e][t11] -=1
+    #     aux_carry_over_table[t21e][t21] -=1
+    #     aux_carry_over_table[t11][t11d] -=1
+    #     aux_carry_over_table[t21][t21d] -=1
+
+    #     aux_carry_over_table[t11e][t21] +=1
+    #     aux_carry_over_table[t21e][t11] +=1
+    #     aux_carry_over_table[t21][t11d] +=1
+    #     aux_carry_over_table[t11][t21d] +=1       
+
+    #     new_obj += (
+    #         (weight_table[t11e][t11] * aux_carry_over_table[t11e][t11]**2) + 
+    #         (weight_table[t21e][t21] * aux_carry_over_table[t21e][t21]**2) + 
+    #         (weight_table[t11][t11d] * aux_carry_over_table[t11][t11d]**2) +
+    #         (weight_table[t21][t21d] * aux_carry_over_table[t21][t21d]**2) +
+
+    #         (weight_table[t11e][t21] * aux_carry_over_table[t11e][t21]**2) + 
+    #         (weight_table[t21e][t11] * aux_carry_over_table[t21e][t11]**2) + 
+    #         (weight_table[t21][t11d] * aux_carry_over_table[t21][t11d]**2) +
+    #         (weight_table[t11][t21d] * aux_carry_over_table[t11][t21d]**2)     
+    #     )
+
+    #     aux_schedule[l1][r],aux_schedule[l2][r] = aux_schedule[l2][r],aux_schedule[l1][r]
 
     return new_obj, aux_carry_over_table
 

@@ -96,6 +96,7 @@ def pts_neighborhood(s,weight_table):
                     best_carry_over_table = c
 
     if obj_minimo < obj_inicial:
+        #print(obj_inicial,best_r,best_t1,best_t2)
         pts(s['schedule'],best_r,best_t1,best_t2)
         s['carry_over_table'] = best_carry_over_table
         s['obj'] = obj_minimo
